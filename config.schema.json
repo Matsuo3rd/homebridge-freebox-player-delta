@@ -36,6 +36,13 @@
 					{ "title": "UPnP (TCP 54243)", "enum": [54243] }
 				],
 				"required": true
+			},
+			"updatePollDelay": {
+				"title": "Polling Interval",
+				"description": "The time (in milliseconds) to wait before polling the Freebox Player device for its status. For example, 10000 milliseconds is 10 seconds.",
+				"type": "integer",
+				"default": 10000,
+				"required": true
 			}
 		}
 	},

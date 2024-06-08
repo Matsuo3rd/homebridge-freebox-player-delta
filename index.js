@@ -74,6 +74,8 @@ class FreeboxPlayerDelta {
 		this.tvPlatform = new api.platformAccessory(tvName, uuid);
 		this.tvPlatform.category = this.api.hap.Categories.TELEVISION;
 
+		this.updatePollDelay = this.config.updatePollDelay || 10000;
+
 		// Create associated services: TV, TV input sources, Speaker, Info
 		this.tvService = this.tvPlatform.addService(this.Service.Television);
 		this.tvService
@@ -163,6 +165,9 @@ class FreeboxPlayerDelta {
 		// Handle speaker service volume control
 		this.speakerService.getCharacteristic(this.Characteristic.VolumeSelector)
 			.on("set", this.setTvVolume.bind(this));
+		
+		//Set up an automatic callback to call our pollforUpdates method according to our specified poll delay.
+        setInterval(this.pollForUpdates.bind(this), this.updatePollDelay);
 
 		// Publish our device as external accessory, to be paired manually, as requested
 		// by TELEVISION category platform.
@@ -255,6 +260,13 @@ class FreeboxPlayerDelta {
 				callback(err);
 			});
 	}
+
+	pollForUpdates() {
+        this.log.debug('Poll update');
+		this.getTvPowerState((err, tvPowerState) => {
+			this.tvService.getCharacteristic(this.Characteristic.Active).updateValue(this.tvPowerState);
+		});
+    }
 
 	// Check if player is alive
 	static CheckIfAlive(hostname, port, logger, callback) {

@@ -22,7 +22,8 @@ The result is saved in config as follows:
 	"code": "<your Freebox network remote code>",
 	"hostname": "<hostname or IPv4/6 address of your Player device",
 	"powerstatus": "<the network service (TCP port) to check for in order to determine if the Player is ON or OFF: 7000 or 54243>",
-	"platform": "FreeboxPlayerDelta"
+	"platform": "FreeboxPlayerDelta",
+	"updatePollDelay": 10000
 }
 ```
 
