@@ -262,7 +262,7 @@ class FreeboxPlayerDelta {
 	}
 
 	pollForUpdates() {
-        this.log.debug('Poll update');
+		this.log.debug('Poll update');
 		this.getTvPowerState((err, tvPowerState) => {
 			this.tvService.getCharacteristic(this.Characteristic.Active).updateValue(this.tvPowerState);
 		});
